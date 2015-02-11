@@ -110,16 +110,13 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
-      var result = [];
-      //If the index is less than 0 its unique. 
-      //if there was an item it would return an index number > 0.
-      //important to remember < 0 *NOT* <= 0 since 0 is an array index.  
-      _.each(array, function(arrayItem){
-        if (result.indexOf(arrayItem) < 0){
-          result.push(arrayItem);
+    var result = [];
+      _.each(array, function(item){
+        if(_.indexOf(result, item) < 0){
+          result.push(item);
         }
-      });  
-    return result;
+      });
+    return result; 
   };
 
 
@@ -175,6 +172,12 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    if(Array.isArray(collection)){
+      if(!accumulator){ accumulator = 0; }
+      _.each(collection, function(item){
+          acumulator += iterator(item);
+      });
+    }
   };
 
   // Determine if the array or object contains a given value (using `===`).
