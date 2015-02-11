@@ -88,7 +88,7 @@
     if(Array.isArray(collection)){
       for(var i = 0; i < collection.length; i++){
         var tst = test(collection[i]);
-        if (tst) { results.push(collection[i]) };
+        if (tst) { results.push(collection[i]); };
       }
     }
     return results;
@@ -98,11 +98,23 @@
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
-
+    return _.filter(collection, test);
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    if (Array.isArray(array)){
+      var result = [];
+      //If the index is less than 0 its unique. 
+      //if there was an item it would return an index number > 0.
+      //important to remember < 0 *NOT* <= 0 since 0 is an array index.  
+      _.each(array, function(arrayItem){
+        if (result.indexOf(arrayItem) < 0){
+          result.push(arrayItem);
+        }
+      });  
+    }
+    return result;
   };
 
 
