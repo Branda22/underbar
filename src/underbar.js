@@ -184,6 +184,22 @@
         }
       }
       return accumulator;
+    } else {
+      if(accumulator === undefined){
+        //get the first item in the object and set it to accumulator.
+        for(var first in collection){
+          accumulator = collection[first];
+          break;
+        }
+        for(var item in collection){
+          accumulator = iterator(accumulator, collection[item]);
+        }
+      } else {
+        for(var item in collection){
+          accumulator = iterator(accumulator, collection[item]);
+        }
+      }
+      return accumulator;
     }
   };
 
