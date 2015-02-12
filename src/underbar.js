@@ -173,10 +173,17 @@
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
     if(Array.isArray(collection)){
-      if(!accumulator){ accumulator = 0; }
-      _.each(collection, function(item){
-          acumulator += iterator(item);
-      });
+      if(accumulator === undefined){
+        accumulator = collection[0];
+        for(var j = 1; j < collection.length; j++){
+          accumulator = iterator(accumulator, collection[j]);
+        }
+      } else {
+        for (var i = 0; i < collection.length; i++){
+          accumulator = iterator(accumulator, collection[i]);
+        }
+      }
+      return accumulator;
     }
   };
 
