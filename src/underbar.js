@@ -183,24 +183,30 @@
           accumulator = iterator(accumulator, collection[i]);
         }
       }
-      return accumulator;
     } else {
       if(accumulator === undefined){
-        //get the first item in the object and set it to accumulator.
+        var key;
         for(var first in collection){
+          //get the first item in the object and set it to accumulator.
+          //store the first key into the key variable.
           accumulator = collection[first];
+          key = first;
           break;
         }
         for(var item in collection){
-          accumulator = iterator(accumulator, collection[item]);
+          // will only call iterator, if its not the first key/value pair in the object.
+          if(collection[item] !== collection[key]){
+            accumulator = iterator(accumulator, collection[item]);  
+          }
         }
       } else {
         for(var item in collection){
           accumulator = iterator(accumulator, collection[item]);
         }
       }
-      return accumulator;
+
     }
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
@@ -219,6 +225,11 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    if (collection === undefined) { 
+      return true ;
+    } else {
+      return _.reduce(collection, iterator); 
+    }
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
