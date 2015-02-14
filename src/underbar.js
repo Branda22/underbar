@@ -246,11 +246,13 @@
     if(!iterator){
       iterator = _.identity;
     }
-    _.every(collection, function(item){
-      if(iterator(item)){
-        result = true;
-      }
-    });
+    if(collection){
+      _.every(collection, function(item){
+        if(iterator(item)){
+          result = true;
+        }
+      });  
+    }
     return result;
   };
 
@@ -275,6 +277,14 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    var destination = {};
+    _.each(arguments, function(item){
+      _.each(item, function(value, key){
+        destination[key] = value;
+      });
+    });
+    arguments[0] = destination;
+    return arguments[0];
   };
 
   // Like extend, but doesn't ever overwrite a key that already
