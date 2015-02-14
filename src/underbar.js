@@ -227,7 +227,7 @@
     // TIP: Try re-using reduce() here.
     var result = true;
     if(!iterator){
-      iterator = function(value) { return value; };
+      iterator = _.identity; //function to use when user does not pass an iterator. 
     }
     if(collection){
       _.reduce(collection, function(test, item){
@@ -242,15 +242,18 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
-    for(var i = 0; i < collection.length; i++){
-      if(iterator){
-        if (iterator(collection[i])) { return true; }        
-      } else {
-        if (collection[i] === true)   { return true; }
-      }
+    var result = false;
+    if(!iterator){
+      iterator = _.identity;
     }
-    return false;
+    _.every(collection, function(item){
+      if(iterator(item)){
+        result = true;
+      }
+    });
+    return result;
   };
+
 
 
   /**
