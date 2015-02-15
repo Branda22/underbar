@@ -361,6 +361,8 @@
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
     var inputs = [];
+    //must start at the third argument, since func and wait are not gonna
+    //be passed as arguments to the delayed function. 
     for(var i = 2; i < arguments.length; i++){
       inputs.push(arguments[i]);
     }
@@ -381,6 +383,21 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    var collection = array.slice();
+    var shuffled = [];
+    var getRandomNumber = function(){
+      return Math.floor(Math.random() * collection.length);
+    }
+    var rand = getRandomNumber();
+
+    _.each(collection, function(item, index){
+      while(rand === index){
+        rand = getRandomNumber();
+      }
+      shuffled[rand] = item;
+    });
+
+    return shuffled;
   };
 
 
