@@ -343,7 +343,7 @@
     for (var i = 0; i < arguments.length; i++){
       return function(){
         var arg = arguments[i];
-        if(arg in cache){
+        if(cache.hasOwnProperty(arg)){
           return cache[arg];
         } else {
           cache[arg] = func.apply(this, arguments);
@@ -392,9 +392,9 @@
       var temp;
       
       //While there are elements to shuffle
-      while(currentLength){
+      while(currentLength){ // 0 == false in JavaScript.
        //pick a remaining element randomly
-       var rand = Math.floor(Math.random() * currentLength--);
+       var rand = Math.floor(Math.random() * currentLength--); 
 
        // Swap it with the current element.
        // Do the shuffle!
@@ -405,7 +405,6 @@
     }
     return collection;
   };
-
 
   /**
    * EXTRA CREDIT
