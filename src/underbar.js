@@ -342,7 +342,7 @@
     var cache = {};
     for (var i = 0; i < arguments.length; i++){
       return function(){
-        var arg = arguments[i]
+        var arg = arguments[i];
         if(arg in cache){
           return cache[arg];
         } else {
@@ -383,10 +383,9 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
 
-  //According to the underscore.js implementation _.shuffle uses the fisher yates shuffle algorithm.
-  //http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
-
   _.shuffle = function(array) {
+    //According to the underscore.js implementation _.shuffle uses the fisher yates shuffle algorithm.
+    //http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
     if(Array.isArray(array)){
       var collection = array.slice();
       var currentLength = collection.length;
@@ -399,9 +398,9 @@
 
        // Swap it with the current element.
        // Do the shuffle!
-       temp = collection[currentLength]
-       collection[currentLength] = collection[rand]
-       collection[rand] = temp
+       temp = collection[currentLength];
+       collection[currentLength] = collection[rand];
+       collection[rand] = temp;
       } 
     }
     return collection;
