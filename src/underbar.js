@@ -86,10 +86,10 @@
   _.filter = function(collection, test) {
     var results = [];
     if(Array.isArray(collection)){
-      for(var i = 0; i < collection.length; i++){
-        var tst = test(collection[i]);
-        if (tst) { results.push(collection[i]); }
-      }
+      _.each(collection, function(item){
+        var tst = test(item);
+        if (tst) { results.push(item); }
+      }); 
     }
     return results;
   };
@@ -100,10 +100,10 @@
     // copying code in and modifying it
     var results = [];
     if(Array.isArray(collection)){
-      for(var i = 0; i < collection.length; i++){
-        var tst = test(collection[i]);
-        if(!tst) { results.push(collection[i]); }
-      }
+      _.each(collection, function(item){
+        var tst = test(item);
+        if(!tst) { results.push(item); }      
+      });
     }
     return results;
   };
@@ -382,22 +382,29 @@
   // TIP: This function's test suite will ask that you not modify the original
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
+
+  //According to the underscore.js implementation _.shuffle uses the fisher yates shuffle algorithm.
+  //http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+
   _.shuffle = function(array) {
-    var collection = array.slice();
-    var shuffled = [];
-    var getRandomNumber = function(){
-      return Math.floor(Math.random() * collection.length);
+    if(Array.isArray(array)){
+      var collection = array.slice();
+      var currentLength = collection.length;
+      var temp;
+      
+      //While there are elements to shuffle
+      while(currentLength){
+       //pick a remaining element randomly
+       var rand = Math.floor(Math.random() * currentLength--);
+
+       // Swap it with the current element.
+       // Do the shuffle!
+       temp = collection[currentLength]
+       collection[currentLength] = collection[rand]
+       collection[rand] = temp
+      } 
     }
-    var rand = getRandomNumber();
-
-    _.each(collection, function(item, index){
-      while(rand === index){
-        rand = getRandomNumber();
-      }
-      shuffled[rand] = item;
-    });
-
-    return shuffled;
+    return collection;
   };
 
 
